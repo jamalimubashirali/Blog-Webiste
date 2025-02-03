@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Logo = ({width = "100px"}) => {
+const Logo = ({width = "100px" , className}) => {
   return (
-    <div>
-      
+    <div className={`${width} ${className}`}>
+      <img src="" alt="Logo for the site" />
     </div>
   )
 }
