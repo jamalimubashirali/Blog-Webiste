@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Logo, CirclularAvatar, Button } from "./index";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -38,13 +38,17 @@ const Header = () => {
           {authStatus && (
             <ul className="flex space-x-6">
               {navItems.map((item, index) => (
-                <li
+                <NavLink
                   key={index}
-                  onClick={() => navigate(item.slug)}
-                  className="cursor-pointer text-gray-700 hover:text-blue-600 transition-colors duration-300"
+                  to={item.slug}
+                  className={({ isActive }) =>
+                    `cursor-pointer text-gray-700 hover:text-blue-600 transition-colors duration-300 ${
+                      isActive ? "text-blue-600 font-bold" : ""
+                    }`
+                  }
                 >
                   {item.name}
-                </li>
+                </NavLink>
               ))}
             </ul>
           )}

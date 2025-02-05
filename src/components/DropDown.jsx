@@ -1,11 +1,21 @@
-import React ,{useId} from "react";
+import React, { useId } from "react";
 
-const DropDown = ({ label, options, iconClass, className="", ...props }) => {
+const DropDown = React.forwardRef(({
+  label,
+  options,
+  iconClass,
+  className = "",
+  ...props
+} , ref) => {
   const id = useId();
   return (
     <div className={`flex flex-col space-y-1 ${className}`}>
       <div className="flex flex-col space-y-1 border p-4 rounded-md">
-        {label && <label htmlFor={id} className="text-sm font-medium">{label}</label>}
+        {label && (
+          <label htmlFor={id} className="text-sm font-medium">
+            {label}
+          </label>
+        )}
         <div className="relative flex items-center">
           <select
             id={id}
@@ -23,6 +33,5 @@ const DropDown = ({ label, options, iconClass, className="", ...props }) => {
       </div>
     </div>
   );
-};
-
-export default React.forwardRef(DropDown);
+});
+export default DropDown;
