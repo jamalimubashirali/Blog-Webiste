@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import authService from "./appwrite/auth.service.js";
 import { login, logout } from "./store/authSlice";
 import { Footer, Header } from "../src/components/index.js";
+import { Outlet } from "react-router-dom";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -33,7 +34,7 @@ function App() {
   return (
     <div className="">
       <Header />
-      <h1>This is a blog Webiste</h1>
+      <Outlet />
       <Footer />
     </div>
   );

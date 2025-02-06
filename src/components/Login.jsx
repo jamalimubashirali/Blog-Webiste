@@ -10,7 +10,11 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const login = async (data) => {
     setError("");
@@ -44,7 +48,7 @@ const Login = () => {
             placeholder="Enter your email"
             type="email"
             {...register("email", {
-              required: true,
+              required: "Email is required",
               validate: {
                 matchPattern: (value) =>
                   /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(value) ||
@@ -53,15 +57,21 @@ const Login = () => {
             })}
             className="w-full"
           />
+          {errors.email && (
+            <p className="text-red-500 text-sm">{errors.email.message}</p>
+          )}
           <InputField
             label="Password"
             type="password"
             placeholder="Enter your password"
             {...register("password", {
-              required: true,
+              required: "Password is required",
             })}
             className="w-full"
           />
+          {errors.password && (
+            <p className="text-red-500 text-sm">{errors.password.message}</p>
+          )}
           <Button
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"

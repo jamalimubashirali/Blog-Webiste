@@ -19,12 +19,9 @@ const InputField = React.forwardRef(function Input(
               className={`${iconClass} absolute left-3 text-gray-500 w-5 h-5`}
             />
           )}
-          <Input
+          <input
             type={type}
-            className={cn(
-              "w-full pl-10 pr-4 py-2 border rounded-md focus:ring focus:ring-blue-500",
-              Icon && "pl-10"
-            )}
+            className={`w-full pl-10 pr-4 py-2 border rounded-md focus:ring focus:ring-blue-500`}
             id={id}
             ref={ref}
             {...props}
@@ -34,4 +31,5 @@ const InputField = React.forwardRef(function Input(
     </div>
   );
 });
+
 export default InputField;
