@@ -8,6 +8,10 @@ import InputField from "./InputField";
 import Logo from "./Logo";
 import PostCard from "./PostCard";
 import RTE from "./RTE";
+import PostForm from "./PostForm";
+import Signup from "./Signup";
+import Login from "./Login";
+import AuthWrapper from './AuthWrapper'
 
 export {
     Header,
@@ -19,5 +23,9 @@ export {
     InputField,
     Logo,
     PostCard,
-    RTE
+    RTE,
+    Signup,
+    Login,
+    PostForm,
+    AuthWrapper
 }

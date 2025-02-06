@@ -2,11 +2,9 @@ import React from "react";
 import { Container, Logo, CirclularAvatar, Button } from "./index";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 const Header = () => {
-  const authStatus = useSelector((state) => state.auth.status);
-  const navigate = useNavigate();
+  const authStatus = useSelector(state => state.auth.status);
 
   const navItems = [
     {
@@ -59,12 +57,16 @@ const Header = () => {
               <CirclularAvatar />
             ) : (
               <>
+                <Link to={'/login'}>
                 <Button className="bg-blue-600 hover:bg-blue-700 text-white">
                   Log In
                 </Button>
+                </Link>
+                <Link to={'/signup'}>
                 <Button className="bg-green-600 hover:bg-green-700 text-white">
                   Get Started
                 </Button>
+                </Link>
               </>
             )}
           </div>
