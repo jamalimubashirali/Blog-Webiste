@@ -4,28 +4,30 @@ import conf from "../conf/config.js";
 class Authentication {
   client = new Client();
   account;
+
   constructor() {
     this.client
-      .setEndpoint(conf.appwriteUrl)
-      .setProject(conf.appwriteProjectId);
+      .setEndpoint(conf.appwriteUrl) // Ensure this is correct
+      .setProject(conf.appwriteProjectId); // Ensure this is correct
     this.account = new Account(this.client);
   }
 
   async createAccount({ email, password, name }) {
     try {
       const createdUser = await this.account.create(
-        ID.unique,
+        ID.unique(),
         email,
         password,
         name
       );
       if (createdUser) {
-        return this.login(email, password);
+        return this.login({ email, password });
       } else {
         return createdUser;
       }
     } catch (error) {
-      console.log(error);
+      console.log("Error creating account:", error);
+      throw error;
     }
   }
 
@@ -33,25 +35,26 @@ class Authentication {
     try {
       return await this.account.createEmailPasswordSession(email, password);
     } catch (error) {
-      console.log("Error Logging in User", error);
+      console.log("Error logging in:", error);
+      throw error;
     }
   }
 
   async getCurrentUser() {
     try {
-      const currentUser = await this.account.get();
-      return currentUser;
+      return await this.account.get();
     } catch (error) {
-      console.log("Error fetching Current User", error);
+      console.log("Error fetching current user:", error);
+      return null;
     }
-    return null;
   }
 
   async logout() {
     try {
       return await this.account.deleteSessions();
     } catch (error) {
-      console.log("Error While Logging Out User", error);
+      console.log("Error logging out:", error);
+      throw error;
     }
   }
 }

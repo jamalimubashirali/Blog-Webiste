@@ -14,41 +14,39 @@ class StorageService {
 
   async uploadFile(file) {
     try {
-      const fileUri = await this.storage.createFile(
+      return await this.storage.createFile(
         conf.appwriteBucketId,
         ID.unique(),
         file
       );
-      return fileUri;
     } catch (error) {
-      console.log("Appwrite Error while uploading file", error);
-      return false;
+      console.error("Appwrite Error :: uploadFile", error);
+      throw error;
     }
   }
 
-  async deleteFile(uniqueId) {
+  async deleteFile(fileId) {  // Renamed parameter for clarity
     try {
-      await this.storage.deleteFile(conf.appwriteBucketId, uniqueId);
+      await this.storage.deleteFile(conf.appwriteBucketId, fileId);
       return true;
     } catch (error) {
-      console.log("Appwrite Error Occured while deleting the file", error);
-      return false;
+      console.error("Appwrite Error :: deleteFile", error);
+      throw error;
     }
   }
 
-  async getPreview(uniqueId) {
+  getFilePreview(fileId) {  // Changed to synchronous method
     try {
-      const filePreview = this.storage.getFilePreview(
+      return this.storage.getFilePreview(
         conf.appwriteBucketId,
-        uniqueId
-      );
-      return filePreview;
+        fileId
+      ).href;  // Return full URL string
     } catch (error) {
-      console.log("Error Getting the file Preview", error);
+      console.error("Appwrite Error :: getFilePreview", error);
+      throw error;
     }
   }
 }
 
 const storageService = new StorageService();
-
 export default storageService;
