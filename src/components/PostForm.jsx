@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Button, InputField, DropDown, RTE } from "./index.js";
-import databaseService from "../appwrite/database.service.js";
-import storageService from "../appwrite/storage.service.js";
+import databaseService from "../appwrite/post.service.js";
 
 const PostForm = ({ post }) => {
   const {
@@ -31,21 +30,10 @@ const PostForm = ({ post }) => {
   const submit = async (data) => {
     try {
       if (post) {
-        // Update existing post
-        let fileId = post.featuredImage;
 
-        if (data.image && data.image[0]) {
-          // Upload new image and delete old one
-          const file = await storageService.uploadFile(data.image[0]);
-          if (file) {
-            fileId = file.$id;
-            await storageService.deleteFile(post.featuredImage);
-          }
-        }
-
-        const updatedPost = await databaseService.updatePost(post.$id, {
+        const updatedPost = await databaseService.updatePost(post.slug, {
           ...data,
-          featuredImage: fileId,
+          featuredImage: data.image[0],
         });
 
         if (updatedPost) {
@@ -54,18 +42,11 @@ const PostForm = ({ post }) => {
       } else {
         // Create new post
         if (data.image && data.image[0]) {
-          const file = await storageService.uploadFile(data.image[0]);
-          if (file) {
-            const fileId = file.$id;
-            data.featuredImage = fileId;
             const newPost = await databaseService.createPost({
               ...data,
-              userId: userData.$id,
             });
-
             if (newPost) {
               navigate(`/post/${newPost.$id}`);
-            }
           }
         }
       }

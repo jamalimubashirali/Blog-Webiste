@@ -1,59 +1,68 @@
-import { Client, ID, Account } from "appwrite";
+import axios from "axios";
 import conf from "../conf/config.js";
 
 class Authentication {
-  client = new Client();
-  account;
 
   constructor() {
-    this.client
-      .setEndpoint(conf.appwriteUrl) // Ensure this is correct
-      .setProject(conf.appwriteProjectId); // Ensure this is correct
-    this.account = new Account(this.client);
+    this.baseURL = conf.backendUri || "http://localhost:5000/api";
   }
 
-  async createAccount({ email, password, name }) {
+  async createAccount(userData) {
     try {
-      const createdUser = await this.account.create(
-        ID.unique(),
+      console.log(userData)
+      const {email , password , name} = userData;
+      console.log(email , password , name)
+      const response = await axios.post(`${this.baseURL}/auth/register`, {
         email,
         password,
-        name
-      );
-      if (createdUser) {
-        return this.login({ email, password });
-      } else {
-        return createdUser;
-      }
+        name,
+      } , {
+        withCredentials : true,
+      });
+      return response.data.user;
     } catch (error) {
-      console.log("Error creating account:", error);
+      console.error("Error creating account:", error.response?.data || error.message);
       throw error;
     }
   }
 
-  async login({ email, password }) {
+  async login(userCredentails) {
     try {
-      return await this.account.createEmailPasswordSession(email, password);
+      const {email , password} = userCredentails;
+      const response = await axios.post(`${this.baseURL}/auth/login`, {
+        email,
+        password,
+      } , {
+        withCredentials : true,
+      });
+      return response.data.user
     } catch (error) {
-      console.log("Error logging in:", error);
+      console.error("Error logging in:", error.response?.data || error.message);
       throw error;
     }
   }
 
   async getCurrentUser() {
     try {
-      return await this.account.get();
+      const response = await axios.get(`${this.baseURL}/auth/me`, {
+        withCredentials: true, 
+      });
+      return response.data.user;
     } catch (error) {
-      console.log("Error fetching current user:", error);
+      console.error("Error fetching current user:", error.response?.data || error.message);
       return null;
     }
   }
 
   async logout() {
     try {
-      return await this.account.deleteSessions();
+      const response = await axios.post(`${this.baseURL}/auth/logout`, {}, {
+        withCredentials: true, 
+      });
+      console.log(response.data)
+      return response.data;
     } catch (error) {
-      console.log("Error logging out:", error);
+      console.error("Error logging out:", error.response?.data || error.message);
       throw error;
     }
   }

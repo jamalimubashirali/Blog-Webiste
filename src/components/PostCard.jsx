@@ -1,5 +1,4 @@
 import React from "react";
-import storageService from "../appwrite/storage.service.js";
 import { Link } from "react-router-dom";
 import { Button } from "./index.js";
 
@@ -9,7 +8,7 @@ const PostCard = ({ $id, title, featuredImage }) => {
       <div className="relative h-48 w-full">
         <img
           className="absolute inset-0 h-full w-full object-cover"
-          src={storageService.getPreview(featuredImage)}
+          src={featuredImage}
           alt={title}
         />
       </div>
