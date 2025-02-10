@@ -4,12 +4,12 @@ import conf from "../conf/config.js";
 class DatabaseService {
 
   constructor() {
-    const baseURL = conf.backendUri || "http://localhost:5000/api"
+    this.baseURL = conf.backendUri || "http://localhost:5000/api"
   }
 
   async createPost(postData) {
     try {
-      const response = await axios.post(`${baseURL}/posts/`, {
+      const response = await axios.post(`${this.baseURL}/posts/`, {
         ...postData
       } , {
         headers : {
@@ -26,7 +26,7 @@ class DatabaseService {
 
   async updatePost(slug, updatedPostData) {
     try {
-      const response = await axios.patch(`${baseURL}/posts/:${slug}`, {
+      const response = await axios.patch(`${this.baseURL}/posts/:${slug}`, {
         ...updatedPostData
       }, {
         headers : {
@@ -42,7 +42,7 @@ class DatabaseService {
 
   async deletePost(slug) {  // Fixed parameter destructuring
     try {
-      const response = await axios.delete(`${baseURL}/posts/:${slug}`, {
+      const response = await axios.delete(`${this.baseURL}/posts/:${slug}`, {
         withCredentials : true
       });
       return true
@@ -54,7 +54,7 @@ class DatabaseService {
 
   async getPost(slug) {
     try {
-      const response = await axios.get(`${baseURL}/posts/:${slug}` , {
+      const response = await axios.get(`${this.baseURL}/posts/:${slug}` , {
         withCredentials : true,
       });
       return response.data;
@@ -64,9 +64,9 @@ class DatabaseService {
     }
   }
 
-  async getDocuments(queries = [Query.equal("status", "active")]) { // Fixed typo
+  async getDocuments() { // Fixed typo
     try {
-      const response = await axios.get(`${baseURL}/posts/` , {
+      const response = await axios.get(`${this.baseURL}/posts/` , {
         withCredentials : true
       });
       return response.data;
