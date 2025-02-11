@@ -47,7 +47,7 @@ const HomePage = () => {
             {posts.map((post) => (
               <PostCard
                 key={post._id}
-                $id={post._id}
+                $id={post.slug}
                 title={post.title}
                 featuredImage={post.featuredImage}
               />

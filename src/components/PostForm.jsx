@@ -30,7 +30,6 @@ const PostForm = ({ post }) => {
   const submit = async (data) => {
     try {
       if (post) {
-
         const updatedPost = await databaseService.updatePost(post.slug, {
           ...data,
           featuredImage: data.image[0],
@@ -40,13 +39,16 @@ const PostForm = ({ post }) => {
           navigate(`/post/${updatedPost.$id}`);
         }
       } else {
-        // Create new post
-        if (data.image && data.image[0]) {
-            const newPost = await databaseService.createPost({
-              ...data,
-            });
-            if (newPost) {
-              navigate(`/post/${newPost.$id}`);
+        
+        if (data.featuredImage && data.featuredImage[0]) {
+          const newPost = await databaseService.createPost({
+            title : data.title,
+            content : data.content || "Content not found",
+            slug : data.slug,
+            featuredImage : data.featuredImage[0]
+          });
+          if (newPost) {
+            navigate(`/post/${newPost.slug}`);
           }
         }
       }
@@ -77,65 +79,79 @@ const PostForm = ({ post }) => {
 
   return (
     <form onSubmit={handleSubmit(submit)} className="space-y-6">
-      {/* Title Input */}
-      <InputField
-        label="Title"
-        placeholder="Enter post title"
-        {...register("title", { required: "Title is required" })}
-        error={errors.title?.message}
-      />
-
-      {/* Slug Input */}
-      <InputField
-        label="Slug"
-        placeholder="Enter post slug"
-        {...register("slug", { required: "Slug is required" })}
-        error={errors.slug?.message}
-      />
-
-      {/* Featured Image Upload */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Featured Image
-        </label>
-        <input
-          type="file"
-          accept="image/png, image/jpg, image/jpeg, image/gif"
-          {...register("image")}
-          className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-        />
-        {post?.featuredImage && (
-          <img
-            src={storageService.getPreview(post.featuredImage)}
-            alt="Featured"
-            className="mt-2 w-32 h-32 object-cover rounded-lg"
+      {/* Two-Column Grid Layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Left Column */}
+        <div className="space-y-6">
+          {/* Title Input */}
+          <InputField
+            label="Title"
+            placeholder="Enter post title"
+            {...register("title", { required: "Title is required" })}
+            error={errors.title?.message}
           />
-        )}
+
+          {/* Slug Input */}
+          <InputField
+            label="Slug"
+            placeholder="Enter post slug"
+            {...register("slug", { required: "Slug is required" })}
+            error={errors.slug?.message}
+          />
+
+          {/* Status Dropdown */}
+          <DropDown
+            label="Status"
+            options={[
+              { label: "Active", value: "active" },
+              { label: "Inactive", value: "draft" },
+            ]}
+            {...register("status", { required: "Status is required" })}
+            error={errors.status?.message}
+          />
+        </div>
+
+        {/* Right Column */}
+        <div className="space-y-6">
+          {/* Featured Image Upload */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Featured Image
+            </label>
+            <input
+              type="file"
+              accept="image/png, image/jpg, image/jpeg, image/gif"
+              {...register("featuredImage")}
+              className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+            />
+            {post?.featuredImage && (
+              <img
+                src={post.featuredImage}
+                alt="Featured"
+                className="mt-2 w-32 h-32 object-cover rounded-lg"
+              />
+            )}
+          </div>
+        </div>
       </div>
 
-      {/* Status Dropdown */}
-      <DropDown
-        label="Status"
-        options={[
-          { label: "Active", value: "active" },
-          { label: "Inactive", value: "inactive" },
-        ]}
-        {...register("status", { required: "Status is required" })}
-        error={errors.status?.message}
-      />
+      <div>
+        <RTE
+          label="Content"
+          name="content"
+          control={control}
+          defaultValue={getValues("content")}
+        />
+      </div>
 
-      {/* Rich Text Editor (RTE) */}
-      <RTE
-        label="Content"
-        name="content"
-        control={control}
-        defaultValue={getValues("content")}
-      />
-
-      {/* Submit Button */}
-      <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white">
-        {post ? "Update Post" : "Create Post"}
-      </Button>
+      <div className="flex justify-center">
+        <Button
+          type="submit"
+          className="bg-blue-600 hover:bg-blue-700 text-white"
+        >
+          {post ? "Update Post" : "Create Post"}
+        </Button>
+      </div>
     </form>
   );
 };

@@ -25,7 +25,7 @@ const DropDown = React.forwardRef(({
           >
             {options?.map((option, index) => (
               <option key={index} value={option.value}>
-                {option.name}
+                {option.label}
               </option>
             ))}
           </select>

@@ -26,7 +26,7 @@ class DatabaseService {
 
   async updatePost(slug, updatedPostData) {
     try {
-      const response = await axios.patch(`${this.baseURL}/posts/:${slug}`, {
+      const response = await axios.patch(`${this.baseURL}/posts/${slug}`, {
         ...updatedPostData
       }, {
         headers : {
@@ -40,9 +40,9 @@ class DatabaseService {
     }
   }
 
-  async deletePost(slug) {  // Fixed parameter destructuring
+  async deletePost(slug) {  
     try {
-      const response = await axios.delete(`${this.baseURL}/posts/:${slug}`, {
+      const response = await axios.delete(`${this.baseURL}/posts/${slug}`, {
         withCredentials : true
       });
       return true
@@ -54,7 +54,7 @@ class DatabaseService {
 
   async getPost(slug) {
     try {
-      const response = await axios.get(`${this.baseURL}/posts/:${slug}` , {
+      const response = await axios.get(`${this.baseURL}/posts/${slug}` , {
         withCredentials : true,
       });
       return response.data;

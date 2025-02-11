@@ -5,10 +5,10 @@ const AddPostPage = () => {
   return (
     <div>
       <Container>
-        
+        <PostForm />
       </Container>
     </div>
   )
 }
 
-export default AddPostPage
+export default AddPostPage;
