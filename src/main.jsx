@@ -10,6 +10,7 @@ import AuthWrapper from "./components/AuthWrapper.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import AddPostPage from "./pages/AddPostPage.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
+import PostPage from "./pages/PostPage.jsx";
 
 
 const router = createBrowserRouter([
@@ -42,6 +43,14 @@ const router = createBrowserRouter([
         element : (
           <AuthWrapper authentication>
             <AddPostPage />
+          </AuthWrapper>
+        )
+      },
+      {
+        path:'/posts/:slug',
+        element : (
+          <AuthWrapper>
+            <PostPage />
           </AuthWrapper>
         )
       }

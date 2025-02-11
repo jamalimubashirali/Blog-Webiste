@@ -14,7 +14,7 @@ const PostCard = ({ $id, title, featuredImage }) => {
       </div>
       <div className="p-6">
         <h2 className="text-xl font-bold mb-2 text-gray-800">{title}</h2>
-        <Link to={`/blog/${$id}`}>
+        <Link to={`/posts/${$id}`}>
           <Button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300">
             Read Blog
           </Button>
