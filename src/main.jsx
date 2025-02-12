@@ -11,6 +11,7 @@ import LoginPage from "./pages/LoginPage.jsx";
 import AddPostPage from "./pages/AddPostPage.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
 import PostPage from "./pages/PostPage.jsx";
+import EditPostPage from "./pages/EditPostPage.jsx";
 
 
 const router = createBrowserRouter([
@@ -43,6 +44,14 @@ const router = createBrowserRouter([
         element : (
           <AuthWrapper authentication>
             <AddPostPage />
+          </AuthWrapper>
+        )
+      },
+      {
+        path:'/edit-post/:slug',
+        element : (
+          <AuthWrapper>
+            <EditPostPage />
           </AuthWrapper>
         )
       },

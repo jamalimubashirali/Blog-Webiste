@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import databaseService from '../appwrite/post.service';
-import { Container } from '../components';
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import databaseService from "../appwrite/post.service";
+import { Container } from "../components";
+import parse from "html-react-parser";
+import { useSelector } from "react-redux";
 
-const PostPage = () => {
+const PostPage = ({ user }) => {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const [post, setPost] = useState({});
   const [error, setError] = useState(true);
+
+  const userData = useSelector((state) => state.auth.userData);
 
   useEffect(() => {
     (async () => {
@@ -16,7 +21,25 @@ const PostPage = () => {
         setError(false);
       }
     })();
-  }, [slug]); // Add `slug` to dependency array to refetch when slug changes
+  }, [slug]);
+
+  const isAuthor = userData?._id === post?.userId; 
+
+  // Handle Edit Post
+  const handleEdit = () => {
+    navigate(`/edit-post/${post.slug}` , {state : {post : post}});
+  };
+
+  // Handle Delete Post
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this post?");
+    if (confirmDelete) {
+      const response = await databaseService.deletePost(post.slug);
+      if(response){
+        navigate("/"); // Redirect to home after deletion
+      }
+    }
+  };
 
   return error ? (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -41,11 +64,30 @@ const PostPage = () => {
           </h1>
         </div>
       </div>
+
       <div className="py-12">
         <Container>
           <div className="prose prose-lg max-w-4xl mx-auto">
-            <p className="text-gray-700">{post.content}</p>
+            <p className="text-gray-700">{parse(post.content)}</p>
           </div>
+
+          {/* Show buttons only if user is the author */}
+          {isAuthor && (
+            <div className="flex justify-end mt-6 space-x-4">
+              <button
+                onClick={handleEdit}
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+              >
+                Edit
+              </button>
+              <button
+                onClick={handleDelete}
+                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+              >
+                Delete
+              </button>
+            </div>
+          )}
         </Container>
       </div>
     </div>

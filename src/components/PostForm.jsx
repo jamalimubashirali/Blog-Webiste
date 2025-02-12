@@ -48,7 +48,7 @@ const PostForm = ({ post }) => {
             featuredImage : data.featuredImage[0]
           });
           if (newPost) {
-            navigate(`/post/${newPost.slug}`);
+            navigate(`/posts/${newPost.slug}`);
           }
         }
       }
