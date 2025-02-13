@@ -12,7 +12,8 @@ import AddPostPage from "./pages/AddPostPage.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
 import PostPage from "./pages/PostPage.jsx";
 import EditPostPage from "./pages/EditPostPage.jsx";
-
+import ProfilePage from "./pages/ProfilePage"
+import EditProfilePage from "./pages/EditProfilePage.jsx"
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,11 @@ const router = createBrowserRouter([
     children : [
       {
         path : '/',
-        element : <HomePage />
+        element : (
+          <AuthWrapper authentication={false}>
+            <HomePage />
+          </AuthWrapper>
+        )
       }, 
       {
         path : '/login',
@@ -60,6 +65,22 @@ const router = createBrowserRouter([
         element : (
           <AuthWrapper>
             <PostPage />
+          </AuthWrapper>
+        )
+      },
+      {
+        path:'/profile/:userId',
+        element : (
+          <AuthWrapper>
+            <ProfilePage />
+          </AuthWrapper>
+        )
+      },
+      {
+        path:'/edit-profile/:userId',
+        element : (
+          <AuthWrapper>
+            <EditProfilePage />
           </AuthWrapper>
         )
       }

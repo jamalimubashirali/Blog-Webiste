@@ -6,6 +6,7 @@ import UserDropdown from "./UserDropDown";
 
 const Header = () => {
   const authStatus = useSelector(state => state.auth.status);
+  const userData = useSelector(state => state.auth.userData);
 
   const navItems = [
     {
@@ -55,7 +56,7 @@ const Header = () => {
           {/* Right Section (Avatar or Buttons) */}
           <div className="flex items-center space-x-4">
             {authStatus ? (
-              <UserDropdown />
+              <UserDropdown user={userData}/>
             ) : (
               <>
                 <Link to={'/login'}>

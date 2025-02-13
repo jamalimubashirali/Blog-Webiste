@@ -2,30 +2,27 @@ import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Button, InputField } from '../components';
-import databaseService from '../appwrite/user.service';
+import authService from '../appwrite/auth.service';
+import { useSelector } from 'react-redux';
 
 const EditProfile = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
   const { register, handleSubmit, setValue } = useForm();
+  const userData = useSelector((state) => state.auth.userData);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const userData = await databaseService.getUser(userId);
-      if (userData) {
-        setValue('name', userData.name);
-        setValue('email', userData.email);
-        setValue('bio', userData.bio);
-        setValue('profilePicture', userData.profilePicture);
-      }
-    };
-
-    fetchUser();
+    if (userData) {
+      setValue('name', userData.name);
+      setValue('email', userData.email);
+      setValue('bio', userData.bio);
+      setValue('profilePicture', userData.profilePicture);
+    }
   }, [userId, setValue]);
 
   const onSubmit = async (data) => {
     try {
-      const updatedUser = await databaseService.updateUser(userId, data);
+      const updatedUser = await authService.updateUser(userId, data);
       if (updatedUser) {
         navigate(`/profile/${userId}`);
       }
