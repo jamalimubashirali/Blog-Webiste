@@ -1,6 +1,5 @@
 import Header from "./Header";
 import Footer from "./Footer";
-import CirclularAvatar from "./CirclularAvatar";
 import Button from "./Button";
 import Container from "./Container";
 import DropDown from "./DropDown";
@@ -12,11 +11,11 @@ import PostForm from "./PostForm";
 import Signup from "./Signup";
 import Login from "./Login";
 import AuthWrapper from './AuthWrapper'
+import UserAvatar from "./Avatar";
 
 export {
     Header,
     Footer,
-    CirclularAvatar,
     Button,
     Container,
     DropDown,
@@ -27,5 +26,6 @@ export {
     Signup,
     Login,
     PostForm,
-    AuthWrapper
+    AuthWrapper,
+    UserAvatar
 }

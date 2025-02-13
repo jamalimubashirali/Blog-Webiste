@@ -1,7 +1,8 @@
 import React from "react";
-import { Container, Logo, CirclularAvatar, Button } from "./index";
+import { Container, Logo , Button} from "./index";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import UserDropdown from "./UserDropDown";
 
 const Header = () => {
   const authStatus = useSelector(state => state.auth.status);
@@ -54,7 +55,7 @@ const Header = () => {
           {/* Right Section (Avatar or Buttons) */}
           <div className="flex items-center space-x-4">
             {authStatus ? (
-              <CirclularAvatar />
+              <UserDropdown />
             ) : (
               <>
                 <Link to={'/login'}>
