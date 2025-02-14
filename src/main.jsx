@@ -12,95 +12,95 @@ import AddPostPage from "./pages/AddPostPage.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
 import PostPage from "./pages/PostPage.jsx";
 import EditPostPage from "./pages/EditPostPage.jsx";
-import ProfilePage from "./pages/ProfilePage"
-import EditProfilePage from "./pages/EditProfilePage.jsx"
-import AllPostPage from "./pages/AllPostsPage.jsx"
+import ProfilePage from "./pages/ProfilePage";
+import EditProfilePage from "./pages/EditProfilePage.jsx";
+import AllPostPage from "./pages/AllPostsPage.jsx";
 
 const router = createBrowserRouter([
   {
-    path : '/',
-    element : <App />,
-    children : [
+    path: "/",
+    element: <App />,
+    children: [
       {
-        path : '/',
-        element : (
+        path: "/",
+        element: (
           <AuthWrapper authentication={false}>
             <HomePage />
           </AuthWrapper>
-        )
-      }, 
+        ),
+      },
       {
-        path : '/login',
-        element : (
+        path: "/login",
+        element: (
           <AuthWrapper authentication={false}>
             <LoginPage />
           </AuthWrapper>
-        )
+        ),
       },
       {
-        path : '/signup',
-        element : (
+        path: "/signup",
+        element: (
           <AuthWrapper authentication={false}>
             <SignUpPage />
           </AuthWrapper>
-        )
+        ),
       },
       {
-        path : '/add-post',
-        element : (
+        path: "/add-post",
+        element: (
           <AuthWrapper authentication>
             <AddPostPage />
           </AuthWrapper>
-        )
+        ),
       },
       {
-        path:'/edit-post/:slug',
-        element : (
+        path: "/edit-post/:slug",
+        element: (
           <AuthWrapper>
             <EditPostPage />
           </AuthWrapper>
-        )
+        ),
       },
       {
-        path:'/posts/:slug',
-        element : (
+        path: "/posts/:slug",
+        element: (
           <AuthWrapper>
             <PostPage />
           </AuthWrapper>
-        )
+        ),
       },
       {
-        path:'/profile/:userId',
-        element : (
+        path: "/profile/:userId",
+        element: (
           <AuthWrapper>
             <ProfilePage />
           </AuthWrapper>
-        )
+        ),
       },
       {
-        path:'/edit-profile/:userId',
-        element : (
+        path: "/edit-profile/:userId",
+        element: (
           <AuthWrapper>
             <EditProfilePage />
           </AuthWrapper>
-        )
+        ),
       },
       {
-        path:'/all-posts',
-        element : (
+        path: "/all-posts",
+        element: (
           <AuthWrapper>
             <AllPostPage />
           </AuthWrapper>
-        )
-      }
-    ]
-  }
-])
+        ),
+      },
+    ],
+  },
+]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </Provider>
   </StrictMode>
 );

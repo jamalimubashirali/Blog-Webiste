@@ -7,16 +7,14 @@ const Footer = () => {
     <footer className="bg-gray-900 text-white py-12">
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* About Section */}
           <div>
-            <h2 className="text-xl font-bold mb-4">About Us</h2>
+            <h2 className="text-xl font-bold mb-4">About Me</h2>
             <p className="text-gray-400">
-              We are a passionate team dedicated to providing the best content
-              and services for our community. Join us on this journey!
+              I am a passionate and dedicated developer, who is here to provide
+              the best content and services for his community. Join us on this
+              journey!
             </p>
           </div>
-
-          {/* Quick Links Section */}
           <div>
             <h2 className="text-xl font-bold mb-4">Quick Links</h2>
             <ul className="space-y-2 flex flex-col">
@@ -35,9 +33,8 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Social Media Section */}
           <div>
-            <h2 className="text-xl font-bold mb-4">Follow Us</h2>
+            <h2 className="text-xl font-bold mb-4">Follow Me</h2>
             <div className="flex space-x-4">
               <a
                 href="https://linkedin.com/in/mubashiralijamali"
@@ -73,7 +70,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Copyright Section */}
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400">
             &copy; {new Date().getFullYear()} Your Company. All rights reserved.

@@ -7,23 +7,25 @@ const AllPostsPage = () => {
 
   useEffect(() => {
     (async () => {
-      const posts = await databaseService.getDocuments();
+      const posts = await databaseService.getDocuments(null);
       if (posts) {
         setPosts(posts);
       }
     })();
   }, []);
   return posts ? (
-    <div>
+    <div className="py-12">
       <Container>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {posts?.map((post, index) => {
-             return <PostCard
-              $id={post._id}
-              title={post.title}
-              featuredImage={post.featuredImage}
-              key={index}
-            />;
+            return (
+              <PostCard
+                $id={post._id}
+                title={post.title}
+                featuredImage={post.featuredImage}
+                key={index}
+              />
+            );
           })}
         </div>
       </Container>

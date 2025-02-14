@@ -1,5 +1,5 @@
-import React from 'react'
-import { Container , PostForm } from '../components/index'
+import React from "react";
+import { Container, PostForm } from "../components/index";
 
 const AddPostPage = () => {
   return (
@@ -8,7 +8,7 @@ const AddPostPage = () => {
         <PostForm />
       </Container>
     </div>
-  )
-}
+  );
+};
 
 export default AddPostPage;

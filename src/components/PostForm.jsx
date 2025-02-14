@@ -39,13 +39,12 @@ const PostForm = ({ post }) => {
           navigate(`/post/${updatedPost.$id}`);
         }
       } else {
-        
         if (data.featuredImage && data.featuredImage[0]) {
           const newPost = await databaseService.createPost({
-            title : data.title,
-            content : data.content || "Content not found",
-            slug : data.slug,
-            featuredImage : data.featuredImage[0]
+            title: data.title,
+            content: data.content || "Content not found",
+            slug: data.slug,
+            featuredImage: data.featuredImage[0],
           });
           if (newPost) {
             navigate(`/posts/${newPost.slug}`);
@@ -147,7 +146,7 @@ const PostForm = ({ post }) => {
       <div className="flex justify-center">
         <Button
           type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white"
+          className="bg-gray-900 hover:bg-gray-300 hover:text-gray-900 text-white"
         >
           {post ? "Update Post" : "Create Post"}
         </Button>

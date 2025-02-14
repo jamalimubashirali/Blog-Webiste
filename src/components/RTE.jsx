@@ -1,7 +1,7 @@
-import React from 'react';
-import { Editor } from '@tinymce/tinymce-react';
-import { Controller } from 'react-hook-form';
-import conf from '../conf/config';
+import React from "react";
+import { Editor } from "@tinymce/tinymce-react";
+import { Controller } from "react-hook-form";
+import conf from "../conf/config";
 
 const RTE = ({ name, control, label, defaultValue = "" }) => {
   return (
@@ -11,7 +11,7 @@ const RTE = ({ name, control, label, defaultValue = "" }) => {
         name={name || "content"}
         control={control}
         defaultValue={defaultValue}
-        render={({ field }) => ( 
+        render={({ field }) => (
           <Editor
             apiKey={conf.tinyMEApiKey}
             initialValue={defaultValue}
@@ -19,17 +19,34 @@ const RTE = ({ name, control, label, defaultValue = "" }) => {
               height: 500,
               menubar: true,
               plugins: [
-                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
-                'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-                'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+                "advlist",
+                "autolink",
+                "lists",
+                "link",
+                "image",
+                "charmap",
+                "preview",
+                "anchor",
+                "searchreplace",
+                "visualblocks",
+                "code",
+                "fullscreen",
+                "insertdatetime",
+                "media",
+                "table",
+                "code",
+                "help",
+                "wordcount",
               ],
-              toolbar: 'undo redo | blocks | ' +
-                'bold italic forecolor | alignleft aligncenter ' +
-                'alignright alignjustify | bullist numlist outdent indent | ' +
-                'removeformat | help',
-              content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+              toolbar:
+                "undo redo | blocks | " +
+                "bold italic forecolor | alignleft aligncenter " +
+                "alignright alignjustify | bullist numlist outdent indent | " +
+                "removeformat | help",
+              content_style:
+                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
             }}
-            onEditorChange={(content) => field.onChange(content)} 
+            onEditorChange={(content) => field.onChange(content)}
           />
         )}
       />

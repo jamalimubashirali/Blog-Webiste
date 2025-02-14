@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../store/authSlice";
 import authService from "../appwrite/auth.service";
 
-const UserDropdown = ({ user }) => {
+const UserDropdown = ({ user, options }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -17,7 +17,6 @@ const UserDropdown = ({ user }) => {
       navigate("/");
     }
   };
-
 
   const handleProfile = () => {
     const userId = user._id;
@@ -33,33 +32,36 @@ const UserDropdown = ({ user }) => {
       }}
       onMouseLeave={() => setIsOpen(false)}
     >
-      {/* User Avatar */}
       <div className="cursor-pointer">
         <UserAvatar user={user} size="medium" />
       </div>
 
-      {/* Dropdown Menu */}
       {isOpen && (
         <div className="absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200">
           <div className="py-1">
-            {/* Go to Profile Option */}
             <div
               onClick={handleProfile}
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
             >
               Go to Profile
             </div>
-            {/*Add Blog Post*/}
+
+            {options.map((option, index) => (
+              <div
+                onClick={() => navigate(`${option.slug}`)}
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer md:hidden"
+              >
+                {option.name}
+              </div>
+            ))}
             <div
               onClick={() => {
-                navigate("/add-post")
+                navigate("/add-post");
               }}
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
             >
               Add Blog Post
             </div>
-
-            {/* Logout Option */}
             <div
               onClick={handleLogout}
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"

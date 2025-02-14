@@ -27,5 +27,5 @@ export {
     Login,
     PostForm,
     AuthWrapper,
-    UserAvatar
+    UserAvatar,
 }

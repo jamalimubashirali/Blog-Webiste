@@ -1,5 +1,5 @@
-import React from 'react';
-import UserAvatar from './Avatar';
+import React from "react";
+import UserAvatar from "./Avatar";
 
 const Profile = ({ user, isEditable = false, onEdit }) => {
   return (
@@ -13,13 +13,13 @@ const Profile = ({ user, isEditable = false, onEdit }) => {
       </div>
       <div className="mt-6">
         <h2 className="text-xl font-semibold text-gray-800">About Me</h2>
-        <p className="text-gray-600 mt-2">{user?.bio || 'No bio available.'}</p>
+        <p className="text-gray-600 mt-2">{user?.bio || "No bio available."}</p>
       </div>
       {isEditable && (
         <div className="mt-6">
           <button
             onClick={onEdit}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
+            className="bg-gray-900 hover:bg-gray-300 hover:text-gray-900 cursor-pointer text-white px-4 py-2 rounded-md"
           >
             Edit Profile
           </button>

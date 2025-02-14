@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Container, PostCard } from '../components';
-import databaseService from '../appwrite/post.service';
+import React, { useEffect, useState } from "react";
+import { Container, PostCard } from "../components";
+import databaseService from "../appwrite/post.service";
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
@@ -8,7 +8,7 @@ const HomePage = () => {
 
   useEffect(() => {
     (async () => {
-      const posts = await databaseService.getDocuments();
+      const posts = await databaseService.getDocuments(null);
       if (posts) {
         setPosts(posts);
         setError(false);
@@ -26,14 +26,12 @@ const HomePage = () => {
     </div>
   ) : (
     <div>
-      {/* Hero Section with Background Image */}
       <section
         className="relative py-20 sm:py-24 md:py-32 lg:py-48 bg-cover bg-center"
         style={{
-          backgroundImage: `url('../src/assets/HomeBg.jpg')`, // Add your image path here
+          backgroundImage: `url('../src/assets/HomeBg.jpg')`,
         }}
       >
-        {/* Overlay to darken the background image */}
         <div className="absolute inset-0 bg-black opacity-50"></div>
 
         <Container>
@@ -47,8 +45,7 @@ const HomePage = () => {
           </div>
         </Container>
       </section>
-
-      {/* Show all Posts Section */}
+      
       <section className="py-12">
         <Container>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -16,10 +16,10 @@ const Signup = () => {
     setError("");
     try {
       const userData = await authService.createAccount(data);
-        if (userData) {
-          dispatch(login(userData));
-          navigate("/");
-        }
+      if (userData) {
+        dispatch(login(userData));
+        navigate("/");
+      }
     } catch (error) {
       setError(error.message);
     }
@@ -65,14 +65,14 @@ const Signup = () => {
           />
           <Button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+            className="w-full bg-gray-900 text-white py-2 rounded-md hover:bg-gray-300 hover:text-gray-900 transition"
           >
             Create Account
           </Button>
         </form>
-        <p className="text-sm text-gray-600 mt-4 text-center">
+        <p className="text-sm text-gray-900 mt-4 text-center">
           Already have an account?{" "}
-          <Link to="/login" className="text-blue-600 hover:underline">
+          <Link to="/login" className="text-gray-600 hover:underline">
             Login
           </Link>
         </p>

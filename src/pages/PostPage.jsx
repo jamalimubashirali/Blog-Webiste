@@ -23,20 +23,20 @@ const PostPage = ({ user }) => {
     })();
   }, [slug]);
 
-  const isAuthor = userData?._id === post?.userId; 
+  const isAuthor = userData?._id === post?.userId;
 
-  // Handle Edit Post
   const handleEdit = () => {
-    navigate(`/edit-post/${post.slug}` , {state : {post : post}});
+    navigate(`/edit-post/${post.slug}`, { state: { post: post } });
   };
 
-  // Handle Delete Post
   const handleDelete = async () => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this post?");
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this post?"
+    );
     if (confirmDelete) {
       const response = await databaseService.deletePost(post.slug);
-      if(response){
-        navigate("/"); // Redirect to home after deletion
+      if (response) {
+        navigate("/");
       }
     }
   };
@@ -51,7 +51,6 @@ const PostPage = ({ user }) => {
     </div>
   ) : (
     <div>
-      {/* Hero Section with Featured Image */}
       <div className="relative h-96 overflow-hidden">
         <img
           src={post.featuredImage || "https://via.placeholder.com/1200x400"}
@@ -71,7 +70,6 @@ const PostPage = ({ user }) => {
             <p className="text-gray-700">{parse(post.content)}</p>
           </div>
 
-          {/* Show buttons only if user is the author */}
           {isAuthor && (
             <div className="flex justify-end mt-6 space-x-4">
               <button
