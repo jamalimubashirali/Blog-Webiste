@@ -14,6 +14,7 @@ import PostPage from "./pages/PostPage.jsx";
 import EditPostPage from "./pages/EditPostPage.jsx";
 import ProfilePage from "./pages/ProfilePage"
 import EditProfilePage from "./pages/EditProfilePage.jsx"
+import AllPostPage from "./pages/AllPostsPage.jsx"
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,14 @@ const router = createBrowserRouter([
         element : (
           <AuthWrapper>
             <EditProfilePage />
+          </AuthWrapper>
+        )
+      },
+      {
+        path:'/all-posts',
+        element : (
+          <AuthWrapper>
+            <AllPostPage />
           </AuthWrapper>
         )
       }
