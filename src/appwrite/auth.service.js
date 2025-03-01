@@ -10,7 +10,6 @@ class Authentication {
     try {
       console.log(userData);
       const { email, password, name } = userData;
-      console.log(email, password, name);
       const response = await axios.post(
         `${this.baseURL}/auth/register`,
         {
