@@ -8,7 +8,6 @@ class Authentication {
 
   async createAccount(userData) {
     try {
-      console.log(userData);
       const { email, password, name } = userData;
       const response = await axios.post(
         `${this.baseURL}/auth/register`,
